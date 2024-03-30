@@ -4,11 +4,11 @@ namespace DavidFricker\RestAPI\Capsule;
 
 use DavidFricker\RestAPI\Router;
 
-class Response 
+class Response
 {
     private $payload = [];
     private $preset_code = Router::INTERNAL_ERROR;
-    
+
     function __construct($preset_code)
     {
         $this->preset_code = $preset_code;
@@ -54,8 +54,16 @@ class Response
                 header('HTTP/1.1 401 Unauthorized');
                 break;
 
+            case Router::USR_BILLING:
+                header('HTTP/1.1 402 Billing');
+                break;
+
             case Router::SRC_NOTFOUND:
                 header('HTTP/1.1 404 Not Found');
+                break;
+
+            case Router::RATE_LIMITED:
+                header('HTTP/1.1 429 Too Many Requests');
                 break;
 
             default:
@@ -80,7 +88,7 @@ class Response
 
         $this->send_header();
         $this->render_json();
-        
+
         die();
     }
 
