@@ -3,7 +3,7 @@
     "description":"Simple OOP MVC PHP REST API Framework",
     "license": "MIT",
     "require":{
-        "php":"^5.3.3 || ^7.0 || ^8.0",
+        "php":"^7.0 || ^8.0",
         "davidfricker/cleanjson": "*",
         "davidfricker/dataabstracter": "*"
     },

@@ -5,16 +5,16 @@ namespace DavidFricker\RestAPI\Capsule;
 use DavidFricker\CleanJson\CleanJson;
 
 /**
-  * A wrapper around a DB driver to expose a uniform interface
-  *
-  * Bassically an abstraction over the complexity of the PDO class, but by design this could wrap any strctured storage mechanism 
-  * A database engine adapter
-  *
-  * @param string $myArgument With a *description* of this argument, these may also
-  *    span multiple lines.
-  *
-  * @return void
-  *
+ * A wrapper around a DB driver to expose a uniform interface
+ *
+ * Bassically an abstraction over the complexity of the PDO class, but by design this could wrap any strctured storage mechanism
+ * A database engine adapter
+ *
+ * @param string $myArgument With a *description* of this argument, these may also
+ *    span multiple lines.
+ *
+ * @return void
+ *
  *
  */
 class Request {
@@ -22,23 +22,23 @@ class Request {
     private $url_elements;
     private $request_parameters;
     private $method;
-    
+
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
 
         if (isset($_SERVER['PATH_INFO'])) {
             $this->url_elements = explode('/', trim($_SERVER['PATH_INFO'], '/'));
         }
-        
+
         switch($this->getMethod()) {
             case 'GET':
                 $this->request_parameters = $_GET;
                 break;
-                
+
             case 'POST':
                 $this->request_parameters = $_POST;
 
-            case 'PUT':       
+            case 'PUT':
             case 'DELETE':
                 $decoded_parameters = CleanJson::decode(file_get_contents('php://input'), true);
                 if ($decoded_parameters != false) {
@@ -60,19 +60,19 @@ class Request {
         if ($index == -1) {
             return $this->url_elements;
         }
-        
+
         if (count($this->url_elements) > $index) {
             return $this->url_elements[$index];
         }
 
-        return false;        
+        return false;
     }
 
     public function getParameters($index = '') {
         if ($index == '') {
             return $this->request_parameters;
         }
-        
+
         if (isset($this->request_parameters[$index])) {
             return $this->request_parameters[$index];
         }
@@ -91,7 +91,7 @@ class Request {
 
         unset($url_elements[0]);
 
-        return $this->getMethod().'_'.implode('_', $url_elements);
+        return $this->getMethod();//.'_'.implode('_', $url_elements);
     }
 }
 
@@ -117,14 +117,14 @@ class Request
         if (isset($_SERVER['PATH_INFO'])) {
             $this->set_url_elements(explode('/', trim($_SERVER['PATH_INFO'], '/')));
         }
-        
+
         switch($this->get_method()) {
             case 'GET':
                 $this->set_parameters($_GET);
                 break;
-                
+
             case 'POST':
-            case 'PUT':       
+            case 'PUT':
             case 'DELETE':
                 $decoded_parameters = CleanJson::decode(file_get_contents('php://input'), true);
                 if ($decoded_parameters === false) {
@@ -142,7 +142,7 @@ class Request
 
     public function set_method($method)
     {
-        // no need for validation since the switch statement in the 
+        // no need for validation since the switch statement in the
         // constructor will catch anything other than the accepted types
         $this->method = strtoupper($method);
     }
@@ -162,13 +162,13 @@ class Request
         if($index == -1) {
             return $this->url_elements;
         }
-        
+
         if(count($this->url_elements) > $index)
         {
             return $this->url_elements[$index];
         }
 
-        return false;        
+        return false;
     }
 
     public function set_parameters($parameters)
@@ -182,7 +182,7 @@ class Request
         {
             return $this->parameters;
         }
-        
+
         if(isset($this->parameters[$index]))
         {
             return $this->parameters[$index];
