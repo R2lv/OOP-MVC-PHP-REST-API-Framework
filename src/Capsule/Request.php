@@ -21,7 +21,7 @@ class Request {
     // url parts stored in an array e.g. example.com/path/to/resource becomes ['path','to','resource']
     private $url_elements;
     private $request_parameters;
-    private $http_method;
+    private $method;
     
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
