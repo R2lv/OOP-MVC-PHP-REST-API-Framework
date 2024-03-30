@@ -83,4 +83,8 @@ class Response
         
         die();
     }
+
+    public function getResponseCode() {
+        return $this->preset_code;
+    }
 }
